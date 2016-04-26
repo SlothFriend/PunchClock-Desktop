@@ -1,0 +1,81 @@
+body {
+    background-color: #AACCAA;
+}
+
+div.mainSection {
+    margin-top: 15px;
+}
+
+/* ClockPanel */
+#clockPanel input {
+    text-align: center;
+}
+
+#clockPanel div.clockContainer {
+    height: 400px;
+    width: 300px;
+    margin-bottom: 40px;
+}
+
+#clockPanel div.clock {
+    height: inherit;
+    background-color: #FFF;
+    box-shadow: 6px 4px 6px grey;
+    border-radius: 6px;
+}
+
+#clockPanel div.clock > div {
+    padding-top: 15px;
+}
+
+#clockPanel div.clockPic{
+    padding: 15px;
+    text-align: center;
+}
+
+#clockPanel div.clockPic img{
+    height: 225px;
+    width: 225px;
+}
+
+/* Glyphicons */
+#clockPanel span.glyphicon {
+    font-size: 25px;
+    color: darkgrey;
+}
+#clockPanel span.glyphicon.delete {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    z-index: 1;
+}
+#clockPanel span.glyphicon.startEdit {
+    position: absolute;
+    top: 7px;
+    right: 21px;
+    z-index: 1;
+}
+#clockPanel span.glyphicon.reset {
+    position: absolute;
+    top: 300px;
+    right: 35px;
+    z-index: 1;
+}
+#clockPanel span.glyphicon:hover {
+    color: grey;
+}
+/* End Glyphicons */
+
+#clockPanel div.info {
+    text-align: center;
+}
+#clockPanel div.clockBtn {
+    text-align: center;
+}
+#clockPanel div.clockBtn > button {
+    width: 50%;
+}
+#clockPanel div.timeEdit input {
+    width: 45px;
+}
+/* End ClockPanel */

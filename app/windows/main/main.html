@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>PunchClock</title>
+    
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    
+    <!-- ANGULAR -->
+    <script src="js/external/angular.min.js"></script>
+    <script src="js/external/angular-local-storage.js"></script>
+    <script src="js/ClockController.js"></script>
+    <!-- END ANGULAR -->
+    <!--<script src="//code.jquery.com/jquery-1.12.0.min.js" defer></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js" defer></script>-->
+</head>
+
+<body ng-app="punchclock" ng-controller="ClockController as ClockControl">
+        
+    <!-- Section where we have the top button controls -->
+    <div class="mainSection container-fluid">
+        <button ng-click="ClockControl.addClock()" id="createClock" class="btn btn-primary" type="button">+ Add a Clock</button>
+
+        <button ng-click="ClockControl.resetClocks()" id="resetClocks" class="btn btn-secondary" type="button">Reset Clocks</button>
+        
+        <!-- <button ng-click="ClockControl.printClocks()" class="btn btn-secondary" type="button">Print Clocks</button> -->
+    </div>
+
+    <!-- Section where the clocks are contained -->
+    <div id="clockPanel" class="mainSection container-fluid">
+        <div ng-repeat="clock in ClockControl.clocks" class='clockContainer col-xs-12 col-sm-6 col-md-4 col-lg-3'>
+            <div class="clock">
+                <!-- Delete and Edit buttons -->
+                <span ng-click="clock.delete()" ng-show="clock.editting" class="glyphicon glyphicon-trash delete"></span>
+                <span ng-click="clock.edit()" ng-hide="clock.editting" class="glyphicon glyphicon-cog startEdit"></span>
+
+                <!-- Clock Name -->
+                <div ng-hide="clock.editting" class="info col-xs-12">{{clock.name}}</div>
+                <div ng-show="clock.editting" class="info col-xs-12">
+                    <input ng-model="clock.name" ng-keyup="$event.keyCode === 13 ? clock.closeEdit() : null" focus-me="clock.editting"
+                           placeholder="Enter project name"/>
+                </div>
+
+                <!-- Clock Image -->
+                <div class="clockPic col-xs-12"><img src="img/simpleClock.PNG" /></div>
+
+                <!-- Clock In/Out and Done Editting buttons -->
+                <div class="clockBtn">
+                    <button ng-click="clock.activate()" ng-show="!clock.active && !clock.editting" class="start btn btn-success">Clock In</button>
+                    <button ng-click="clock.deactivate()" ng-show="clock.active && !clock.editting" class="stop btn btn-danger">Clock Out</button>
+                    <button ng-click="clock.closeEdit()" ng-show="clock.editting" class="doneEdit btn btn-primary">Done Editting</button>
+                </div>
+
+                <!-- Reset Clock button -->
+                <span ng-click="clock.reset()" ng-show="clock.editting" class="glyphicon glyphicon-repeat reset"></span>
+
+                <!-- Clock time display and edit fields -->
+                <div ng-hide="clock.editting" class="info">{{clock.seconds | HHMISS}}</div>
+                <div ng-show="clock.editting" class="info timeEdit col-xs-12">
+                    <div class="col-xs-4">
+                        HH: <input ng-model="clock.hoursPart" type="number" min="0"/>
+                    </div>
+                    <div class="col-xs-4">
+                        MM: <input ng-model="clock.minutesPart" type="number" min="0" max="60"/>
+                    </div>
+                    <div class="col-xs-4">
+                        SS: <input ng-model="clock.secondsPart" type="number" min="0" max="60"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section where we have the bottom button controls -->
+    <div class="mainSection container-fluid">
+        <button ng-click="ClockControl.showingTotals = true" ng-show="ClockControl.clocks.length > 0 && !ClockControl.showingTotals" id="showTotals" class="btn btn-primary" type="button">Show Totals</button>
+        <button ng-click="ClockControl.showingTotals = false" ng-show="ClockControl.clocks.length > 0 && ClockControl.showingTotals" id="hideTotals" class="btn btn-secondary" type="button">Hide Totals</button>
+    </div>
+    
+    <!-- Where the totals are displayed -->
+    <div ng-show="ClockControl.clocks.length > 0 && ClockControl.showingTotals" class="mainSection container-fluid">
+        <div ng-repeat="clock in ClockControl.clocks" ng-show="clock.seconds >= 60" class="col-xs-12">
+            <span>{{clock.name}}: {{clock.seconds | HHMI}}</span>
+        </div>
+        <div class="col-xs-12">
+            <span><b>Total: {{ClockControl.totalTime() | HHMI}}</b></span>
+        </div>
+    </div>
+    
+    <div class="mainSection bottomBuffer container-fluid"></div>
+    
+</body>
+
+</html>
