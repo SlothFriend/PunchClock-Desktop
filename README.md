@@ -2,7 +2,7 @@
 
 ###Why PunchClock?###
 
-PunchClock was born out of my frustration with the difficulties of tracking my time to different clients thoughout the day. I built PunchClock to make it easy to switch your time to various projects. At the end of the day your totals per project are already displayed.
+PunchClock was born out of my frustration with the difficulties of tracking my time to different clients throughout the day. I built PunchClock to make it easy to switch your time to various projects. At the end of the day your totals per project are already displayed.
 
 ###Built with Electron###
 
